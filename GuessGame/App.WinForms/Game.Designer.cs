@@ -171,7 +171,7 @@
             button3.BackColor = Color.FromArgb(96, 130, 182);
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button3.Location = new Point(24, 279);
+            button3.Location = new Point(24, 260);
             button3.Name = "button3";
             button3.Size = new Size(147, 29);
             button3.TabIndex = 13;

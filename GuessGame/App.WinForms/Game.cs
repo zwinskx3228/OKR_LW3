@@ -90,7 +90,7 @@ namespace App.WinForms
             MessageBox.Show(result);
             textBox1.Text = "";
 
-            if (result == "Ви вгадали!")
+            if (result == "Ви вгадали! Так тримати!")
             {
                 // 🔥 оновити streak
                 label6.Text = $"🔥 {_service.WinsCount}";
