@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 namespace App.WinForms
 {
     public partial class Game : Form
     {
+        private readonly GuessNumberService _service = new GuessNumberService();
         public Game()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace App.WinForms
 
         private void Game_Load(object sender, EventArgs e)
         {
-
+            UpdateUI();
         }
 
         private void Game_Paint(object sender, PaintEventArgs e)
@@ -59,12 +61,26 @@ namespace App.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int min = (int)numericUpDown2.Value;
+            int max = (int)numericUpDown1.Value;
 
+            try
+            {
+                _service.GenerateNumber(min, max);
+                MessageBox.Show("Число згенеровано! Починайте гру.");
+
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+        }
+        private void UpdateUI()
+        {
+            labelTry.Text = $"{_service.AttemptsLeft} attempts left";
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
