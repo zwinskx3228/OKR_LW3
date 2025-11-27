@@ -120,6 +120,7 @@
             button1.TabIndex = 8;
             button1.Text = "Generate a number";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -132,6 +133,7 @@
             button2.TabIndex = 9;
             button2.Text = "Take a guess";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // textBox1
             // 
@@ -140,6 +142,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(448, 78);
             textBox1.TabIndex = 10;
+            textBox1.KeyDown += textBox1_KeyDown;
             // 
             // labelTry
             // 
