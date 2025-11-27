@@ -68,15 +68,29 @@ namespace App.WinForms
             {
                 _service.GenerateNumber(min, max);
                 MessageBox.Show("Число згенеровано! Починайте гру.");
-
+                textBox1.Text = "";
+                UpdateUI();
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (!int.TryParse(textBox1.Text, out int guess))
+            {
+                MessageBox.Show("Введіть коректне число!");
+                return;
+            }
+
+            string result = _service.Guess(guess);
+
+            MessageBox.Show(result);
+            textBox1.Text = "";
+
+            UpdateUI();
         }
         private void UpdateUI()
         {
@@ -86,6 +100,11 @@ namespace App.WinForms
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

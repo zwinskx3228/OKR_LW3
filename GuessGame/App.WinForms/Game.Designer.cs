@@ -40,6 +40,7 @@
             textBox1 = new TextBox();
             labelTry = new Label();
             label6 = new Label();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
@@ -47,10 +48,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Imprint MT Shadow", 25.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Microsoft Sans Serif", 25.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(236, -4);
             label1.Name = "label1";
-            label1.Size = new Size(328, 52);
+            label1.Size = new Size(344, 52);
             label1.TabIndex = 0;
             label1.Text = "Guess a number";
             // 
@@ -165,11 +166,25 @@
             label6.Text = "🔥 0";
             label6.Click += label6_Click;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(96, 130, 182);
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            button3.Location = new Point(24, 279);
+            button3.Name = "button3";
+            button3.Size = new Size(147, 29);
+            button3.TabIndex = 13;
+            button3.Text = "finish the game";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
             // Game
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(833, 320);
+            Controls.Add(button3);
             Controls.Add(label6);
             Controls.Add(labelTry);
             Controls.Add(textBox1);
@@ -206,5 +221,6 @@
         private TextBox textBox1;
         private Label labelTry;
         private Label label6;
+        private Button button3;
     }
 }
