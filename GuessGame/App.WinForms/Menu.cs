@@ -14,9 +14,9 @@ namespace App.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-           // Game gameform = new Game();
-            // gameform.Show();
-            this.Close();
+            this.Hide();
+           Game gameform = new Game();
+            gameform.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
