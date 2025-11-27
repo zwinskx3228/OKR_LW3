@@ -2,48 +2,68 @@
 {
     public class GuessNumberService
     {
-        private readonly Random _random = new Random();
+        private static readonly Random _random = new Random();
 
-        public int SecretNumber { get; private set; }
-        public int AttemptsLeft { get; private set; }
-        public int WinsCount { get; private set; }
+        private int _secretNumber;
+        private int _attemptsLeft = 5;
+        private int _winsCount = 0;
+        private int _min = 1;
+        private int _max = 100;
+        private const int DefaultAttempts = 5;
 
-        public bool IsNumberGenerated { get; private set; }
+        public int AttemptsLeft => _attemptsLeft;
+        public int WinsCount => _winsCount;
+        public int Min => _min;
+        public int Max => _max;
+        public bool IsNumberGenerated { get; private set; } = false;
 
         public void GenerateNumber(int min, int max)
         {
             if (min >= max)
                 throw new ArgumentException("Мінімальне число має бути меншим за максимальне.");
 
-            SecretNumber = _random.Next(min, max + 1);
-            AttemptsLeft = 5;
+            _min = min;
+            _max = max;
+            _secretNumber = _random.Next(_min, _max + 1);
+            _attemptsLeft = DefaultAttempts;
             IsNumberGenerated = true;
         }
 
+        /// <summary>
+        /// Користувач зробив спробу. Метод повертає текстовий результат.
+        /// Якщо вгадано — лічильник перемог збільшується та одразу генерується нове число у збереженому діапазоні.
+        /// </summary>
         public string Guess(int number)
         {
             if (!IsNumberGenerated)
                 return "Спочатку згенеруйте число!";
 
-            if (AttemptsLeft <= 0)
-                return "Спроби закінчились!";
+            if (_attemptsLeft <= 0)
+                return $"Спроби закінчились! Загадане число було: {_secretNumber}";
 
-            AttemptsLeft--;
+            _attemptsLeft--;
 
-            if (number == SecretNumber)
+            // 🎯 ВГАДАНО — але не генеруємо нове число!
+            if (number == _secretNumber)
             {
-                WinsCount++;
-                IsNumberGenerated = false;
+                _winsCount++;
+                IsNumberGenerated = false; // Тепер обов'язково треба генерувати нове
                 return "Ви вгадали!";
             }
-            else if (number > SecretNumber)
+
+            if (_attemptsLeft == 0)
             {
-                return "Число завелике!";
+                var lostNumber = _secretNumber;
+                IsNumberGenerated = false;
+                return $"Ви програли! Загадане число: {lostNumber}";
             }
-            else
-            {
-                return "Число замале!";
-            }
+
+            return number < _secretNumber ? "Більше" : "Менше";
+        }
+
+        public void ResetStreak()
+        {
+            _winsCount = 0;
         }
     }
 }

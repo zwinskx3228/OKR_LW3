@@ -90,6 +90,30 @@ namespace App.WinForms
             MessageBox.Show(result);
             textBox1.Text = "";
 
+            if (result == "Ви вгадали!")
+            {
+                // 🔥 оновити streak
+                label6.Text = $"🔥 {_service.WinsCount}";
+                label6.ForeColor = Color.Red;
+
+                // ❗ Після вгадування нове число НЕ генерується автоматично
+                // Користувач повинен натиснути кнопку Generate
+                labelTry.Text = "Press generate!";
+                return;
+            }
+
+            // ❌ Якщо програш — обнуляємо streak
+            if (_service.AttemptsLeft == 0)
+            {
+                _service.ResetStreak();
+                label6.Text = $"🔥 {_service.WinsCount}";
+                label6.ForeColor = Color.Black;
+
+                labelTry.Text = "Press generate!";
+                return;
+            }
+
+            // Звичайне оновлення спроб
             UpdateUI();
         }
         private void UpdateUI()
