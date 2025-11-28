@@ -69,7 +69,7 @@ namespace App.WinForms
                 _service.GenerateNumber(min, max);
                 MessageBox.Show("Число згенеровано! Починайте гру.");
                 textBox1.Text = "";
-                UpdateUI();
+                UpdateStreakUI();
             }
             catch (Exception ex)
             {
@@ -86,40 +86,35 @@ namespace App.WinForms
             }
 
             string result = _service.Guess(guess);
-
             MessageBox.Show(result);
             textBox1.Text = "";
 
-            if (result == "Ви вгадали! Так тримати!")
+            if (result.Contains("Ви вгадали") || result.Contains("Ви програли"))
             {
-                // 🔥 оновити streak
-                label6.Text = $"🔥 {_service.WinsCount}";
-                label6.ForeColor = Color.Red;
-
-                // ❗ Після вгадування нове число НЕ генерується автоматично
-                // Користувач повинен натиснути кнопку Generate
                 labelTry.Text = "Press generate!";
-                return;
+            }
+            else
+            {
+                labelTry.Text = $"Залишилось спроб: {_service.AttemptsLeft}";
             }
 
-            // ❌ Якщо програш — обнуляємо streak
-            if (_service.AttemptsLeft == 0)
-            {
-                _service.ResetStreak();
-                label6.Text = $"🔥 {_service.WinsCount}";
-                label6.ForeColor = Color.Black;
+            UpdateStreakUI();
+        }
 
-                labelTry.Text = "Press generate!";
-                return;
-            }
+        private void UpdateStreakUI()
+        {
+            label6.Text = $"🔥 {_service.WinsCount}";
 
-            // Звичайне оновлення спроб
-            UpdateUI();
+            if (_service.WinsCount > 0)
+                label6.ForeColor = Color.FromArgb(255, 100, 0);  // помаранчевий/червоний
+            else
+                label6.ForeColor = Color.Gray;                  // сірий
         }
         private void UpdateUI()
         {
             labelTry.Text = $"{_service.AttemptsLeft} attempts left";
         }
+
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {

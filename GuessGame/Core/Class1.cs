@@ -29,10 +29,7 @@
             IsNumberGenerated = true;
         }
 
-        /// <summary>
-        /// Користувач зробив спробу. Метод повертає текстовий результат.
-        /// Якщо вгадано — лічильник перемог збільшується та одразу генерується нове число у збереженому діапазоні.
-        /// </summary>
+
         public string Guess(int number)
         {
             if (!IsNumberGenerated)
@@ -43,23 +40,25 @@
 
             _attemptsLeft--;
 
-            // 🎯 ВГАДАНО — але не генеруємо нове число!
             if (number == _secretNumber)
             {
                 _winsCount++;
-                IsNumberGenerated = false; // Тепер обов'язково треба генерувати нове
-                return "Ви вгадали!";
+                IsNumberGenerated = false;
+                return "Ви вгадали! Так тримати!";
             }
 
             if (_attemptsLeft == 0)
             {
                 var lostNumber = _secretNumber;
                 IsNumberGenerated = false;
-                return $"Ви програли! Загадане число: {lostNumber}";
+                ResetStreak(); 
+                return $"Ви програли! Загадане число було: {lostNumber}";
             }
 
-            return number < _secretNumber ? "Більше" : "Менше";
+            return number < _secretNumber ? "Більше ↑" : "Менше ↓";
         }
+
+
 
         public void ResetStreak()
         {
